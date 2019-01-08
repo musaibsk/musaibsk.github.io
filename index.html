@@ -1,22 +1,97 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title>Mine Sweeper</title>
     <link rel="“stylesheet”" href="./style.css" />
     <style>
       .wrapper {
+        display: flex;
+        justify-content: center;
+        width: 1200px;
+        margin: 0 auto;
+      }
+      .leftbar {
+        padding: 0 15px;
       }
 
       #main {
-        width: 30%;
-        margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(5, 1fr);
+      }
+      input#noOfBombs {
+        width: 100%;
+        color: rgba(9, 24, 54, 0.8);
+        font-weight: 600;
+        -webkit-appearance: none;
+        outline: none;
+        border-radius: 3px 0px 0px 3px;
+        padding: 0.75em;
+        transition: border-color 0.3s ease 0s;
+        background: rgb(255, 255, 255);
+        border-width: 2px 2px 2px;
+        border-style: solid solid solid;
+        border-color: rgb(225, 228, 240) rgb(225, 228, 240) rgb(225, 228, 240);
+        border-image: initial;
+        overflow: hidden;
+        font-size: 15px;
+      }
+
+      input[type="submit"] {
+        margin: 15px 0;
+        background: rgb(142, 224, 0);
+        width: 100%;
+        padding: 15px 0;
+        font-size: 18px;
+        color: #fff;
+        border: none;
+      }
+      button.customrc {
+        background: rgb(92, 185, 247);
+        border-width: 2px;
+        border: none;
+        margin-bottom: 10px;
+        font-size: 20px;
+        color: #fff;
+        width: 100%;
+        padding: 5px 0;
+      }
+
+      p {
+        margin: 0 0 0px;
+        color: rgba(9, 24, 54, 0.4);
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .mineblocks {
+        margin: 0 5px;
       }
     </style>
   </head>
   <body>
     <div>
-      <div class="wrapper"><div id="main"></div></div>
+      <div class="wrapper">
+        <div class="leftbar">
+          <p>Number of mines:</p>
+          <input type="text" name="usrname" id="noOfBombs" /> <br />
+          <input type="submit" value="Submit" onclick="runGame()" /><br /><br />
+
+          <p>Select row/column:</p>
+          <button type="button" class="customrc" onclick="changeRowColumn(2)">
+            2 x 2</button
+          ><br />
+          <button type="button" class="customrc" onclick="changeRowColumn(3)">
+            3 x 3</button
+          ><br />
+          <button type="button" class="customrc" onclick="changeRowColumn(4)">
+            4 x 4</button
+          ><br />
+          <button type="button" class="customrc" onclick="changeRowColumn(5)">
+            5 x 5</button
+          ><br />
+        </div>
+        <div id="main"></div>
+      </div>
     </div>
   </body>
   <script src="javascript.js"></script>

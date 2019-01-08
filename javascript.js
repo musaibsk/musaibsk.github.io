@@ -1,29 +1,47 @@
+let noofbombs = 3;
+let customRowColumn = 3;
+let calcPoints = 0;
+let goal;
+
+changeRowColumn = (a) => {
+  customRowColumn = a;
+  runGame();
+}
+
 function mineBlocks() {
   let arr = [];
-  for (i = 0; i < 5; i++) {
+  for (i = 0; i < customRowColumn; i++) {
     let arrBlock = [];
-    for (j = 0; j < 5; j++) {
+    for (j = 0; j < customRowColumn; j++) {
       arrBlock.push({ type: "bell", reveal: false });
     }
     arr.push(arrBlock);
   }
+  console.log("dsd", arr);
   return arr;
 }
 
 let threebomb = mineBlocks();
 
+placeBomb = () => {
+  noofbombs = 0 ? 3 : noofbombs;
+}
+
+
+
 function injectBomb(bombnum) {
   for (i = 0; i < bombnum; i++) {
-    a = Math.round(Math.random() * 4);
-    b = Math.round(Math.random() * 4);
+    a = Math.abs(Math.round(Math.random() * customRowColumn-1));
+    b = Math.abs(Math.round(Math.random() * customRowColumn-1));
+    console.log(a,b)
     threebomb[a][b].type = "bomb";
   }
 }
 
 
 function insertImageBlocks() {
-  for (i = 0; i < 5; i++) {
-    for (j = 0; j < 5; j++) {
+  for (i = 0; i < customRowColumn; i++) {
+    for (j = 0; j < customRowColumn; j++) {
       let imageDivBlocks = document.createElement("div");
       let squareImage = document.createElement("Img");
       squareImage.setAttribute("src", "grey-image.png");
@@ -47,6 +65,14 @@ function clickedDiv() {
     if (threebomb[rowi][rowj].type == "bell") {
       this.dataset.reveal = true;
       this.firstChild.src = "diamond.png";
+      calcPoints++;
+      if(calcPoints === goal) {
+        setTimeout(function() {
+          alert("You win");
+          runGame();
+        }, 200);
+      }
+
     } else {
       this.firstChild.src = "bomb.png";
       setTimeout(function() {
@@ -58,9 +84,21 @@ function clickedDiv() {
 }
 
 function runGame() {
-  document.getElementById("main").innerHTML = "";
+  calcPoints = 0;
+  let mainIdBlock = document.getElementById("main");
+  mainIdBlock.innerHTML = "";
+  mainIdBlock.style['grid-template-columns'] = `repeat(${customRowColumn}, 1fr)`;
+  
   threebomb = mineBlocks();
-  injectBomb(3);
+  let newbombadded = document.getElementById('noOfBombs').value;
+  if (newbombadded !== ""){
+    noofbombs = parseInt(newbombadded)
+  } else {
+    noofbombs = 3
+  }
+  goal = (customRowColumn * customRowColumn) - noofbombs;
+  document.getElementById('noOfBombs').value="";
+  injectBomb(noofbombs);
   insertImageBlocks();
 }
 
