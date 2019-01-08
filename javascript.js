@@ -1,4 +1,4 @@
-let noofbombs = 3;
+let noofbombs = 1;
 let customRowColumn = 3;
 let calcPoints = 0;
 let goal;
@@ -17,14 +17,14 @@ function mineBlocks() {
     }
     arr.push(arrBlock);
   }
-  console.log("dsd", arr);
+
   return arr;
 }
 
 let threebomb = mineBlocks();
 
 placeBomb = () => {
-  noofbombs = 0 ? 3 : noofbombs;
+  noofbombs = 0 ? 1 : noofbombs;
 }
 
 
@@ -33,7 +33,6 @@ function injectBomb(bombnum) {
   for (i = 0; i < bombnum; i++) {
     a = Math.abs(Math.round(Math.random() * customRowColumn-1));
     b = Math.abs(Math.round(Math.random() * customRowColumn-1));
-    console.log(a,b)
     threebomb[a][b].type = "bomb";
   }
 }
@@ -94,7 +93,7 @@ function runGame() {
   if (newbombadded !== ""){
     noofbombs = parseInt(newbombadded)
   } else {
-    noofbombs = 3
+    noofbombs = 1
   }
   goal = (customRowColumn * customRowColumn) - noofbombs;
   document.getElementById('noOfBombs').value="";
